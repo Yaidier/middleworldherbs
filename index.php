@@ -2,4 +2,4 @@
 
 ?>
 
-<h1>Middle World </h1>
+<h1>Middle World Herbs is back </h1>
