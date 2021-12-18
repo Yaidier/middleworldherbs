@@ -452,7 +452,7 @@ input:focus-visible {
 }
 
 .variations_form {
-	display: block;
+	display: none;
 }
 
 .wn-every {

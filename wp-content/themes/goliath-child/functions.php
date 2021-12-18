@@ -1537,16 +1537,9 @@ add_action('wp_ajax_wn_call_insta', 'wn_call_insta');
 
 function wn_debugger() {
     
-    // echo get_term_link('product');
-
-
-    
-
     if( !current_user_can( 'administrator' )) {
         return;
     }
-
-    // die();
 
     global $post;
     global $product;
@@ -1554,22 +1547,10 @@ function wn_debugger() {
 
     if ( $post ) {
 
-        var_dump( get_option( 'wn_debugger_2' ) );
-
     }
 }
 
 add_action('wp', 'wn_debugger');
-
-
-add_shortcode('wn-test', 'wn_test');
-
-
-function wn_test() {
-    // echo 'Heyasdfasdfasd';
-}
-
-
 
 function add_cors_http_header(){
     header("Access-Control-Allow-Origin: *");
