@@ -556,7 +556,7 @@ class WnFloatAddToCart {
                     },
                     {
                         name: 'convert_to_sub_dropdown1234',
-                        value: '1_month',
+                        value: '2_month',
                     },
                     {
                         name: 'convert_to_sub_1234',

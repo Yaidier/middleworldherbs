@@ -348,10 +348,6 @@ input:focus-visible {
 	box-shadow: 0px 0px 4px #232b19;
 }
 
-.wn_sp_gallery {
-
-}
-
 .wn_sp_gallery_imgs__active {
 	box-shadow: 2px 2px 9px #443d1d71 !important;
 	transition: 0.3s ease;
@@ -635,21 +631,6 @@ input:focus-visible {
   color: #f3e4c7;
 }
 
-.wn-addtocart_total::before {
-  /* content: "";
-  position: absolute;
-  width: calc( 100% - 6px);
-  height: calc( 100% - 5px);
-  background-image: url("https://middleworldherbs.com/wp-content/themes/goliath-child/theme/assets/images/woocommerce/custom-add-to-cart-form/background-selector-small.svg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  z-index: -1; */
-}
-
 .wn-addtocart_add_to_cart_button {
 	all:unset;
 	font-weight: 600;
@@ -662,11 +643,6 @@ input:focus-visible {
 .wn-addtocart_add_to_cart_button--disabled {
 	pointer-events: none;
 	opacity: 0.5;
-}
-
-.wn-addtocart_add_to_cart_button:hover {
-	/* transform: scale(1.03);
-	transition: 0.4s ease; */
 }
 
 .wn-addtocart_amount {

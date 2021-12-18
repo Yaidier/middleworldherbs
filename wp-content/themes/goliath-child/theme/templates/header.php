@@ -6,6 +6,8 @@
     }
 ?>
 
+<?php $site_url = get_site_url(); ?>
+
 <?php
     if(
         (is_single() && get_post_type() == 'post')
@@ -23,7 +25,7 @@
     <?php if(plsh_gs('use_image_logo') == 'on') {
 		?>
 
-        <a class="wn_logo_image" href="https://middleworldherbs.com"><img src="https://middleworldherbs.com/wp-content/uploads/2021/02/cropped-cropped-Middle-World-Herbs-Logo-Png-150x150.png" alt="Middle World Herbs Logo"></a>
+        <a class="wn_logo_image" href="<?php echo $site_url; ?>"><img src="<?php echo $site_url; ?>/wp-content/uploads/2021/02/cropped-cropped-Middle-World-Herbs-Logo-Png-150x150.png" alt="Middle World Herbs Logo"></a>
          
         
     <?php } else { ?>
