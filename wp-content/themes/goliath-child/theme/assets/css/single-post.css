@@ -1,0 +1,252 @@
+
+
+.wnautpost_content_wrapper h1 {
+    display: none;
+}
+
+.wnautpost_content_wrapper h2 {
+    font-size: 22px !important;
+    color: #443c1b !important;
+}
+
+.wnautpost_content_wrapper .block {
+    display: block;
+    margin: 10px 0px;
+}
+
+.wnautpost_content_wrapper .block span {
+    font-size: 16px !important; 
+}
+
+.wnautpost_content_wrapper .block li {
+    margin: 13px;
+}
+
+.wnautpost_content_wrapper .block h2 {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.widget-content {
+	background-color: transparent !important;
+	border-bottom: none !important;
+	padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.widget-content .search > input {
+    background-color: transparent;
+}
+
+/******** Prducts Carousel on the Sidebar *******************/
+
+.wn_mwh_products_carousel_wrapper {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.wn_mwh_products_carousel_wrapper:hover .wn_mwh_sidebar_carousel_prev {
+    opacity: 1;
+    transition: .6s ease;
+}
+.wn_mwh_products_carousel_wrapper:hover .wn_mwh_sidebar_carousel_next {
+    opacity: 1;
+    transition: .6s ease;
+}
+
+.slick-dots li button::before {
+    font-size: 8px !important;
+}
+
+.wn_mwh_header_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 15px;
+    font-family: "Abel";
+    border-bottom: 3px solid #443c1b12;
+    padding-bottom: 1px;
+    position: relative;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+.wn_mwh_header_wrapper::before {
+    content: "";
+    position: absolute;
+    width: 50px;
+    left: 0;
+    bottom: -3px;
+    border-bottom: 3px solid #443c1b;
+}
+
+
+.wn_mwh_carousel_product_content {
+    margin-top: 15px;
+}
+
+
+.wn_mwh_carousel_product_title {
+    font-family: Quicksand;
+    font-size: 16px;
+    margin-bottom: 0px !important;
+    line-height: 16px;
+    margin-top: 10px;
+    color: #443c1b;
+}
+
+
+
+.wn_mwh_carousel_single_image {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: auto;
+}
+
+.wn_mwh_carousel_prev_button, .wn_mwh_carousel_next_button {
+  background-color: transparent;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 35%;
+  padding: 10px;
+  fill: #b7b7b7;
+  box-shadow: 2px 2px 4px gray;
+  cursor: pointer;
+  transition: .5s ease;
+  z-index: 10;
+  opacity: 0;
+  transition: .3s ease;
+}
+
+
+
+.wn_mwh_carousel_prev_button {
+  left: 0;
+}
+
+.wn_mwh_carousel_next_button {
+  right: 0;
+}
+
+.wn_mwh_wc_products_carousel {
+    margin: 10px 40px;
+    margin-bottom: 0px !important;
+}
+
+.wn_mwh_price_atc_wrapper {
+    display: flex;
+}
+
+.wn_mwh_add_to_cart {
+    background-color: #443c1b !important;
+    padding: 0px 5px !important;
+    margin-left: 10px !important;
+    color: white !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+  }
+
+  .wn_mwh_prodcut_price {
+    font-weight: 900;
+    font-size: 16px;
+    color: black;
+  }
+  .wn_mwh_product_carousel_product_porperties ul {
+    padding-left: 20px;
+    margin-top: 10px;
+}
+
+.wn_mwh_woo_img {
+	max-width: 220px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	transform: translateX(13%);
+}
+
+/******** Prducts Carousel on the Sidebar *******************/
+
+.wn_mwh_single_post_image {
+    width: 100px;
+    height: 100px;
+}
+
+.wn_related_recent_posts_wrapper {
+    margin-bottom: 30px;
+}
+
+.wn_mwh_related_cat_list_wrapper {
+    margin-bottom: 30px;
+}
+
+.wn_mwh_related_cat_list_wrapper ul {
+    list-style-type: none ;
+    padding-left: 0 ;
+}
+
+.wn_author_flex_class {
+    display: flex;
+}
+.wn_author_flex_class img {
+    float:unset;
+}
+
+.post img {
+    height: 346px !important;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+.about-author .about img {
+	border-radius: 100px;
+	border: solid 2px #e4dbd4;
+    width: 100px;
+    height: 100px;
+}
+
+.wn_author_content_wrapper > h2 > span {
+    display: block;
+    margin-left: 0px !important;
+}
+
+.ql-container,
+.ql-toolbar {
+    background-color: transparent !important;
+}
+
+.wc_comm_submit {
+    background-color: #443C1B !important;
+}
+
+.wn_mwh_sidebar_carousel_prev, 
+.wn_mwh_sidebar_carousel_next {
+	width: 40px;
+	fill: #b7b7b7;
+	box-shadow: 2px 2px 4px gray;
+	height: 40px;
+	position: absolute;
+	padding: 10px;
+    top: 28%;
+    cursor: pointer;
+    transition: 0.4s ease;
+    z-index: 10;
+    opacity: 0;
+}
+
+.wn_mwh_sidebar_carousel_prev:hover, 
+.wn_mwh_sidebar_carousel_next:hover {
+    transition: 0.4s ease;
+    transform: scale(1.1);
+}
+
+.wn_mwh_sidebar_carousel_prev {
+    left: 0;
+}
+.wn_mwh_sidebar_carousel_next {
+    right: 0;
+}
+
+
