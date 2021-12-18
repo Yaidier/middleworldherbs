@@ -1546,7 +1546,7 @@ function wn_debugger() {
         return;
     }
 
-    die();
+    // die();
 
     global $post;
     global $product;
