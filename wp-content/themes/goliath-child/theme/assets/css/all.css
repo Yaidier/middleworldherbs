@@ -1,0 +1,375 @@
+/******************** FOOTER ********************/
+
+footer.footer {
+    padding: 0px;
+    margin-bottom: 0px;
+}
+
+.container.copyright {
+    margin: 0px;
+    padding: 0px;
+}
+
+.wn_mwh_footer {
+    background-color: #232b19;
+}
+
+.wn_mwh_footer * {
+    font-family: Quicksand;
+    color: #fff;
+}
+
+.wn_mwh_footer .wn_mwh_footer_inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 970px;
+    padding: 50px 10px;
+}
+
+
+.wn_mwh_footer .wn_mwh_subscription > h3 {
+    font-size: 28px;
+    text-align: center;
+}
+
+.wn_mwh_footer .wn_mwh_subscription > p {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.wn_mwh_footer .wn_mwh_sign_up_wrapper {
+    margin-top: 20px;
+}
+
+.wn_mwh_footer .wn_mwh_sign_up_wrapper > form {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 516px;
+}
+
+.wn_mwh_footer .wn_mwh_sign_up_wrapper > form > input {
+    color: #232b19;
+    height: 43px;
+    width: 100%;
+    max-width: 360px;
+    padding: 0px 10px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+}
+
+.wn_mwh_footer .wn_mwh_sign_up_wrapper > form > input::placeholder {
+    color: #232b19;
+    font-weight: 600;
+
+}
+
+.wn_mwh_footer .wn_mwh_sign_up_wrapper > form > button {
+    height: 43px;
+    padding: 0px 45px;
+    cursor: pointer;
+    background-color: #b0603b;
+    border: none;
+    border-radius: 4px;
+    margin-left: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.wn_mwh_footer.wn_mwh_newsletter_section {
+    margin-top: 100px;
+    border-bottom: 1px solid #fff;
+}
+
+.wn_mwh_footer .wn_mhw_footer_nav_menus {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.wn_mwh_footer .mwh_footer_logo > img {
+    width: 170px;
+    object-fit: contain;
+    height: auto;
+}
+
+.wn_mwh_footer .wn_mwh_footer_menu_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 600px;
+    margin-left: 50px;
+}
+
+.wn_mwh_footer .wn_mwh_footer_menu {
+    transition: 0.3s ease;
+}
+
+.wn_mwh_footer_menu_icon__open {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    display: none;
+    transform: translateY(-50%);
+}
+
+.wn_mwh_footer_menu_icon__open::before {
+    content: "";
+    position: absolute;
+    background-image: url('data:image/svg+xml;utf8,<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="rgb(255, 255, 255)" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>');
+    background-repeat: no-repeat;
+    background-size: contain;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: 0.3s ease;
+}
+
+.wn_mwh_footer .wn_mwh_footer_menu h3 {
+    position: relative;
+    font-size: 18px;
+}
+
+.wn_mwh_footer .wn_mwh_footer_menu > ul {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+.wn_mwh_footer .wn_mwh_footer_menu > ul > li {
+    margin: 5px 0px;
+}
+
+.wn_mwh_footer .wn_mwh_footer_menu > ul > li > a {
+    text-decoration: none;
+}
+.wn_mwh_footer .wn_mwh_footer_menu > ul > li > a:hover {
+    text-decoration: underline;
+}
+
+.wn_mwh_footer .wn_mwh_footer_contact_wrapper {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.wn_mwh_footer .wn_mhw_footer_contact_info {
+    margin-right: 10px;
+}
+
+.wn_mwh_footer .wn_mhw_footer_contact_info > span {
+    display: block;
+    font-size: 14px;
+}
+
+.wn_mwh_footer .wn_mhw_footer_cert {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 240px;
+    width: 100%;
+}
+
+.wn_mwh_footer .wn_mhw_footer_cert::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 65px;
+    height: 100%;
+    border-right: 1px solid #fff;
+}
+
+.wn_mwh_footer .wn_mhw_footer_cert > img {
+    width: 100%;
+    max-width: 45px;
+    height: auto;
+    object-fit: contain;
+
+}
+
+.wn_mwh_footer .wn_mhw_footer_cert > p {
+    font-size: 14px;
+    max-width: 140px;
+}
+
+.wn_mwh_footer .wn_mhw_footer_submenu {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wn_mwh_footer .wn_mhw_footer_privacy,
+.wn_mwh_footer .wn_mhw_footer_social_media {
+    list-style-type: none;
+    padding-left: 0px;
+}
+.wn_mwh_footer .wn_mhw_footer_privacy {
+    list-style-type: none;
+    display: flex;
+    width: 100%;
+    max-width: 340px;
+    justify-content: space-between;
+    margin-right: 40px;
+}
+.wn_mwh_footer .wn_mhw_footer_social_media {
+    list-style-type: none;
+    display: flex;
+    width: 100%;
+    max-width: 240px;
+    justify-content: space-between;
+}
+.wn_mwh_footer .wn_mhw_footer_privacy > li {
+    display: inline;
+    margin-right: 10px;
+}
+.wn_mwh_footer .wn_mhw_footer_privacy > li > a {
+    text-decoration: none;
+}
+
+.wn_mwh_footer .wn_mhw_footer_privacy > li > a:hover {
+    text-decoration: underline;
+}
+
+.wn_mwh_footer .wn_mhw_footer_social_media > li {
+    display: inline;
+}
+
+.wn_mwh_footer .wn_mhw_footer_social_media > li > a {
+    text-decoration: none;
+    display: block;
+    transition: 0.3s ease;
+}
+
+.wn_mwh_footer .wn_mhw_footer_social_media > li > a:hover {
+    transform: scale(1.1);
+    transition: 0.3s ease;
+}
+
+.wn_mwh_footer .wn_mwh_footer_disclaimer_banner {
+    font-size: 11px;
+    text-align: center;
+    margin-top: 40px;
+    background-color: #443d1d;
+    padding: 15px 20px;
+}
+
+
+
+.wn_mwh_footer .wn_mwh_footer_menu.wn_mwh_footer_menu__active .wn_mwh_footer_menu_icon__open::before {
+    transform: rotate(45deg);
+    transition: 0.3s ease;
+}
+
+.wn_mwh_footer .wn_mwh_footer_menu.wn_mwh_footer_menu__active > ul {
+    position: absolute;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: 0.2s ease;
+}
+
+
+@media only screen and (max-width:767px) {
+    .wn_mwh_footer .wn_mhw_footer_nav_menus {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .wn_mwh_footer .wn_mwh_footer_menu_wrapper {
+        margin-left: 0px;
+        margin-top: 30px;
+        max-width: unset;
+        display: block;
+    }
+
+    .wn_mwh_footer .wn_mhw_footer_submenu {
+        flex-direction: column-reverse;
+    }
+
+    .wn_mwh_footer .wn_mhw_footer_privacy {
+        margin-right: 0px;
+        max-width: unset;
+    }
+
+    .wn_mwh_footer .wn_mhw_footer_social_media {
+        margin-top: 10px;
+        max-width: 312px;
+    }
+
+    .wn_mwh_footer .wn_mwh_footer_menu {
+        position: relative;
+        border-bottom: 1px solid #fff;
+        margin-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .wn_mwh_footer .wn_mwh_footer_menu ul {
+        position: absolute;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: 0.2s ease;
+    }
+
+    .wn_mwh_footer .wn_mwh_footer_menu h3 {
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .wn_mwh_footer_menu_icon__open {
+        display: block;
+    }
+
+}
+
+@media only screen and (max-width: 600px) {
+
+    .wn_mwh_footer .wn_mwh_footer_menu_wrapper {
+        justify-content: center;
+    }
+
+    .wn_mwh_footer .wn_mwh_footer_menu {
+        /* margin: 15px; */
+    }
+
+}
+
+@media only screen and (max-width: 500px) {
+
+    .wn_mwh_footer .wn_mwh_footer_contact_wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .wn_mwh_footer .wn_mhw_footer_contact_info {
+        margin-right: 0px;
+        text-align: center;
+    }
+
+    .wn_mwh_footer .wn_mhw_footer_cert {
+        margin-top: 10px;
+        max-width: 312px;
+    }
+
+    .wn_mwh_footer .wn_mwh_sign_up_wrapper > form > button {
+        margin-left: 0px;
+        border-radius: 0px 4px 4px 0px;
+        padding: 0px 20px;
+    }
+
+    .wn_mwh_footer .wn_mwh_sign_up_wrapper > form > input {
+        border-radius: 4px 0px 0px 4px;
+    }
+}

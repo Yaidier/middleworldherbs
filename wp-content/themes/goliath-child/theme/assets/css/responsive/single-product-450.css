@@ -1,0 +1,8 @@
+.woocommerce #reviews #comments ol.commentlist {
+    padding-left: 0px;
+    width: 100% !important;
+}
+
+.wn_woo_single_p_wrapper .related ul > li {
+    width: 100%;
+}

@@ -1,0 +1,14 @@
+/*
+ Theme Name:   Goliath Child
+ Description:  Goliath Child Theme
+ Template:     goliath
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+@font-face { 
+    font-family: Veneer; 
+    src: url(https://middleworldherbs.com/wp-content/themes/goliath-child/theme/assets/fonts/Veneer/Veneer.ttf);
+    font-weight: normal; 
+}

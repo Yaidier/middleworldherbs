@@ -1,0 +1,338 @@
+
+jQuery(document).ready(function($){
+
+    var is_subscribe_pressed_already = false;
+
+    // On mouse hover event
+    function wn_sp_gallery_onmousehover() {
+        $('.wn_sp_gallery_imgs').on('mouseover', function(){
+
+            //Adding the box-shadow css property to the selected gallery
+            $('.wn_sp_gallery_imgs').removeClass('wn_sp_gallery_imgs__active');
+            $(this).addClass('wn_sp_gallery_imgs__active');
+    
+            //Displaying the clicked gallery
+            const img_index = $(this).attr('index');
+            $('.wn_sp_featured_img').removeClass('wn_sp_featured_img__active');    
+            $('.wn_sp_featured_img[index="' + img_index + '"]').addClass('wn_sp_featured_img__active');
+    
+        });
+    }
+
+    function restric_subscriptios_to_one_pack () {
+
+        let cont = 0;
+
+        var check_element_to_attach_event =  setInterval(() => {
+
+            if ( $('.wcsatt-options-prompt-radios').length) {
+
+
+                $('.variations_form').on('click', '.wcsatt-options-prompt-radios > li > label', function() {
+
+                    if ( !$(this).hasClass( 'wcsatt-options-prompt-label-one-time' ) ) {
+
+                        $('#choose-quantity').val('1-Pack');
+                        $('#choose-quantity').prop('disabled', 'disabled');
+
+                        setTimeout(() => {
+                            $('#choose-quantity').trigger('change');
+                        }, 100);
+
+                    }
+                    else {
+
+                        $('#choose-quantity').prop('disabled', false);
+
+                    }
+        
+                });
+
+                clearInterval( check_element_to_attach_event );
+
+            }
+            
+            if ( cont >= 5 ) {
+
+                clearInterval( check_element_to_attach_event );
+                
+            }
+
+            cont++;
+
+        }, 1000);
+        
+    }
+
+    function variation_hook () {
+
+
+        $( ".variations_form" ).on( "woocommerce_variation_select_change", function () {
+            // Fires whenever variation selects are changed
+            
+        } );
+
+    }
+
+    function choose_quantity_click_event() {
+
+        $('.wn-quatity_dropdown > ul > li').on('click', function(){
+
+            const li_value = $(this).attr('value');
+
+            $('#choose-quantity').val(li_value);
+
+            setTimeout(() => {
+
+                $('#choose-quantity').trigger('change');
+
+            }, 100);
+
+        });
+    }
+    function choose_every_click_event() {
+
+        $('.wn-every_dropdown > ul').on('click', ' > li', function(){
+
+            const li_value = $(this).attr('value');
+
+            $('.wcsatt-options-product-dropdown').val(li_value);
+
+            setTimeout(() => {
+
+                $('.wcsatt-options-product-dropdown').trigger('change');
+
+            }, 100);
+
+        });
+    }
+
+    function update_add_to_cart_button_status() {
+
+        if ( $('.single_add_to_cart_button').hasClass( 'disabled' ) ) {
+
+            $('.wn-addtocart_add_to_cart_button').addClass( 'wn-addtocart_add_to_cart_button--disabled' );
+
+        }else {
+
+            $('.wn-addtocart_add_to_cart_button').removeClass( 'wn-addtocart_add_to_cart_button--disabled' );
+
+        }
+
+    }
+
+    function price_change_event() {
+
+        $('#choose-quantity').on('change', function(){
+
+            setTimeout(() => {
+
+                var price_html_content = $('.woocommerce-variation-price > .price > .woocommerce-Price-amount').html();
+                $('.wn-addtocart_total > span').html(price_html_content);
+
+                update_add_to_cart_button_status();
+                
+            }, 100);
+
+
+        });
+    }
+
+    function add_to_cart_click_event() {
+
+        $('.wn-addtocart_add_to_cart_button').on('click', function() {
+
+            $('.variations_form').submit();
+
+        });
+
+    }
+
+    function filling_deliver_every_list() {
+
+        //Filling Deliver Every list with data from the real Woo elements 
+        //Empty the li in Mask Template
+        $('.wn-every_dropdown > ul').empty();
+        $('.wcsatt-options-product-dropdown > option').each(function(){
+
+
+            const text_content = $(this).text();
+            var value          = $(this).attr('value');
+
+            //Create a new li
+            const new_li_element = '<li value="' + value + '">' + text_content + '</li>'
+            $('.wn-every_dropdown > ul').append(new_li_element);
+            
+        });
+
+        //Getting first option
+        const first_option_text = $('.wcsatt-options-product-dropdown > option:nth-child(1)').text();
+
+        $('#wn_choose_every > span').text(first_option_text);
+            
+    }
+
+    function custom_cart_buttons() {
+
+        //Filling Quantity list with data from the real Woo elements 
+        //Empty the li in Mask Template
+        $('.wn-quatity_dropdown > ul').empty();
+        $('#choose-quantity > option').each(function(){
+
+            const text_content = $(this).text();
+            var value          = text_content;
+
+            if( text_content == 'Choose an option' ) {
+
+                value = '';
+
+            }
+
+            //Create a new li
+            const new_li_element = '<li value="' + value + '">' + text_content + '</li>'
+            $('.wn-quatity_dropdown > ul').append(new_li_element);
+            
+        });
+
+
+        
+        
+
+
+        //Setting the slect to the default option
+        const default_selected_option = $("#choose-quantity > option[selected='selected']").text();
+        const default_selected_option_value = $("#choose-quantity > option[selected='selected']").attr('value');
+        $('#wn_choose_quantity > span').text(default_selected_option);
+        $('#choose-quantity').val(default_selected_option_value);
+
+        setTimeout(() => {
+            $('#choose-quantity').trigger('change');
+        }, 100);
+
+
+        //Getting the Price Value
+        const prive_html_content = $('.woocommerce-variation-price > .price > .woocommerce-Price-amount').html();
+        $('.wn-addtocart_total > span').html(prive_html_content);
+
+        //Registering Choose Quatity Events
+        choose_quantity_click_event();
+
+        //Registering Choose Deliver Events
+        choose_every_click_event();
+
+        //Registering Price Change Event
+        price_change_event();
+
+        //Registering the Add to Cart Button Event
+        add_to_cart_click_event();
+
+
+        $('.wn_text_containers > span').on('click', function() {
+
+            if($(this).hasClass('subscription_purshase_option')) {
+    
+                $('.wn_background_selector').addClass('wn_background_sleector--right');
+    
+                //Changing text color
+                $(this).css('color', '#fff');
+                $('.wn_one_time_purshase_option').css('color', '#443d1d');
+
+                //Trigering the click event on the real woo element
+                $('.wcsatt-options-prompt-radios > li > .wcsatt-options-prompt-label-subscription').click();
+
+                filling_deliver_every_list();
+
+                setTimeout(() => {
+
+                    $('.wcsatt-options-product-dropdown').val('1_month');
+                    $('.wcsatt-options-product-dropdown').trigger('change');
+
+                }, 100);
+                
+
+                $('#wn_choose_quantity > span').text('1-Pack');
+                $('#wn_choose_quantity').addClass('wn-addtocart_add_to_cart_button--disabled');
+
+                $('.wn-addtocart_total').css('display', 'none');
+                $('.wn-every').css('display', 'block');
+
+                $('.wn-addtocart > label').text('DELIVER');
+                $('.wn-addtocart_add_to_cart_button').text('SIGN UP');
+    
+            }
+            else {
+    
+                $('.wn_background_selector').removeClass('wn_background_sleector--right');
+    
+                //Changing text color
+                $(this).css('color', '#fff');
+                $('.subscription_purshase_option').css('color', '#443d1d');
+                
+                //Trigering the click event on the real woo element
+                $('.wcsatt-options-prompt-radios > li > .wcsatt-options-prompt-label-one-time').click();
+
+                $('#wn_choose_quantity').removeClass('wn-addtocart_add_to_cart_button--disabled');
+
+                $('.wn-addtocart_total').css('display', 'flex');
+                $('.wn-every').css('display', 'none');
+
+                $('.wn-addtocart > label').text('TOTAL');
+                $('.wn-addtocart_add_to_cart_button').text('ADD TO CART');
+            }
+        });
+    
+        //Displaying the dropdown for Quantity
+        $('#wn_choose_quantity').on('click', function(){
+
+            $(this).toggleClass('wn-quatity_select--open');
+
+        });
+
+        //Displaying the dropdown for Deliver Every
+        $('#wn_choose_every').on('click', function(){
+
+            $(this).toggleClass('wn-every_select--open');
+
+        });
+    
+        //Assigning the new Qunatity select to the slected div
+        $('.wn-quatity_dropdown > ul > li').on('click', function() {
+    
+            //Storing the value of the li
+            const selected_li = $(this).text();
+    
+            //Asigning the value to the main selector 
+            $('#wn_choose_quantity > span').text(selected_li);
+    
+        });
+
+        //Assigning the new Deliver Every select to the slected div
+        $('.wn-every_dropdown > ul').on('click', '> li', function() {
+    
+            //Storing the value of the li
+            const selected_li = $(this).text();    
+            //Asigning the value to the main selector 
+            $('#wn_choose_every > span').text(selected_li);
+    
+        });
+
+    }
+
+    //Registering Events
+    wn_sp_gallery_onmousehover();
+    restric_subscriptios_to_one_pack();
+    variation_hook();
+
+    custom_cart_buttons()
+
+
+
+    //Calling Functions 
+    
+
+
+
+
+
+
+});

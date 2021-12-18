@@ -1,0 +1,4 @@
+.woocommerce #reviews #comments ol.commentlist {
+    padding-left: 0px;
+    width: 100% !important;
+}

@@ -1,0 +1,28 @@
+.product > .summary > .cart > .single_add_to_cart_button {
+    font-size: 100%;
+    line-height: 1;
+}
+
+.woocommerce-product-gallery {
+	float: unset;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wn_woo_single_p_wrapper .wn_woo_single_p_container .product .summary .woocommerce-product-details__short-description ul {
+    margin-left: 0px;
+}
+
+.wn_woo_single_p_wrapper .related ul {
+    justify-content: center;
+}
+
+.wn_sp_image_wrapper {
+    max-width: 100%;
+}
+
+.wn_woo_single_p_container .product .summary {
+    margin-left: 0px;
+    margin-top: 30px;
+}
