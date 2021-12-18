@@ -1,5 +1,5 @@
 <?php 
 
-echo "this a real php file";
+echo "this a real php";
 
 ?>
