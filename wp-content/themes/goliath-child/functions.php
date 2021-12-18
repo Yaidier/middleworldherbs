@@ -1539,9 +1539,14 @@ function wn_debugger() {
     
     // echo get_term_link('product');
 
+
+    
+
     if( !current_user_can( 'administrator' )) {
         return;
     }
+
+    die();
 
     global $post;
     global $product;
