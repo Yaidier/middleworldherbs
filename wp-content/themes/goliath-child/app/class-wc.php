@@ -14,13 +14,29 @@ class WC {
         self::load_custom_add_to_cart();
         self::load_custom_metaboxes();
         self::display_amz_redirect();
-        self::float_add_to_cart();
+        self::add_floating_cart();
 
     }  
 
-    static function float_add_to_cart() {
+    private static function add_floating_cart() {
 
-        
+        add_filter( 'wp_nav_menu_items', function( $nav_menu, $args ){
+
+            ob_start();
+            require_once get_stylesheet_directory() . '/templates/woocommerce/cart_section.php';
+            $cart_section = ob_get_clean();
+
+            $nav_menu .= $cart_section;
+
+            return $nav_menu;
+
+        }, 2, 10 );
+
+        add_action( 'wp_footer', function(){
+
+            require_once get_stylesheet_directory() . '/templates/woocommerce/floating_cart.php';
+
+        } );
 
     }
 

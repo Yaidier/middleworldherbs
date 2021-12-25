@@ -202,6 +202,9 @@ jQuery(document).ready(function($){
 
             const li_value = $(this).attr('value');
 
+            $( this ).closest('ul').find( 'li' ).removeClass( 'active' );
+            $( this ).addClass( 'active' );
+
             $('.wcsatt-options-product-dropdown').val(li_value);
 
             setTimeout(() => {
@@ -259,17 +262,23 @@ jQuery(document).ready(function($){
         //Filling Deliver Every list with data from the real Woo elements 
         //Empty the li in Mask Template
         $('.wn-every_dropdown > ul').empty();
-        $('.wcsatt-options-product-dropdown > option').each(function(){
+
+        $('.wcsatt-options-product-dropdown > option').each(function( index, element ){
 
 
             var text_content = $(this).text();
             var value          = $(this).attr('value');
+            let class_names = '';
+
+            if( index == 0 ) {
+                class_names += 'active ';
+            }
 
             //Removing everythin betwenn parentisis in the text content
             text_content = text_content.split('(').shift();
 
             //Create a new li
-            const new_li_element = '<li value="' + value + '">' + text_content + '</li>'
+            const new_li_element = '<li class="' + class_names + '" value="' + value + '">' + text_content + '</li>'
             $('.wn-every_dropdown > ul').append(new_li_element);
             
         });
@@ -477,14 +486,6 @@ class WnFloatAddToCart {
 		} );
 	}
 
-    // get_wcurl ( endpoint ) {
-	// 	return xoo_wsc_params.wc_ajax_url.toString().replace(
-	// 		'%%endpoint%%',
-	// 		endpoint
-	// 	);
-	// };
-
-
     init(){
 
         let add_to_cart_buttons = document.querySelectorAll('.wn-addtocart_add_to_cart_button');
@@ -493,129 +494,61 @@ class WnFloatAddToCart {
 
             button.addEventListener('click', function( e ) {
 
-                console.log('click');
+                console.log( 'the ajax url' );
+                console.log( the_ajax_script.ajaxurl );
 
-                e.preventDefault();
+                let request             = new XMLHttpRequest(),
+			        url                 = new URL( the_ajax_script.ajaxurl ),
+                    product_id          = document.querySelector( 'form.variations_form.cart input[name="product_id"]' ).getAttribute( 'value' ),
+                    variation_id        = document.querySelector( 'form.variations_form.cart input[name="variation_id"]' ).getAttribute( 'value' ),
+                    quantity            = document.querySelector( 'form.variations_form.cart input[name="quantity"]' ).getAttribute( 'value' ),
+                    active_li_element   = document.querySelector( 'div.wn_custom_form_wrapper .wn_purshase_type.wn_var_selector > li.wn_varselector__aactive' ),
+                    subscription        = active_li_element.classList.contains( 'subscription_purshase_option' ) ? document.querySelector( '.wn-every_select .wn-every_dropdown li.active' ).getAttribute( 'value' ) : false;
 
-                let $form = jQuery('.summary > form.variations_form[data-product_id]');
+                url.searchParams.append( 'action',          'wn_mwh_float_add_to_cart' );
+                url.searchParams.append( 'product_id',      product_id );
+                url.searchParams.append( 'quantity',        quantity );
+                url.searchParams.append( 'variation_id',    variation_id );
+                url.searchParams.append( 'subscription',    subscription );
 
-                if( $form.closest('.product').hasClass('product-type-external') ) return;
+                console.log( 'is subscription' );
+                console.log( subscription );
 
-                // e.preventDefault();
+                console.log( 'form' );
+                console.log( document.querySelector( 'form.variations_form.cart' ) );
 
-                var $button  		= $form.find( 'button[type="submit"]'),
-                    productData 	= $form.serializeArray(),
-                    hasProductId 	= false;
+                console.log( 'product id' );
+                console.log( product_id );
 
+                console.log( 'variation id' );
+                console.log( variation_id );
 
-                //Check for woocommerce custom quantity code 
-                //https://docs.woocommerce.com/document/override-loop-template-and-show-quantities-next-to-add-to-cart-buttons/
-                jQuery.each( productData, function( key, form_item ){
-                    if( form_item.name === 'productID' || form_item.name === 'add-to-cart' ){
-                        if( form_item.value ){
-                            hasProductId = true;
-                            return false;
-                        }
+                console.log( 'the url' );
+                console.log( url );
+
+                request.open( 'GET', url.href, true );
+                request.onload = function() {
+
+                    if (this.status >= 200 && this.status < 400) {
+
+                      const resp = this.response;
+                      console.log( 'Success!' );
+                      console.log( resp );
+
+                      
+
+                    } else {
+                      console.log( 'We reached our target server, but it returned an error' );
                     }
-                })
+                };
+                  
+                request.onerror = function() {
+                    console.log( 'There was a connection error of some sort' );
+                };
 
-                //If no product id found , look for the form action URL
-                if( !hasProductId ){
-                    var is_url = $form.attr('action').match(/add-to-cart=([0-9]+)/),
-                        productID = is_url ? is_url[1] : false; 
-                }
+                request.send();
 
-                // if button as name add-to-cart get it and add to form
-                if( $button.attr('name') && $button.attr('name') == 'add-to-cart' && $button.attr('value') ){
-                    var productID = $button.attr('value');
-                }
-
-                if( productID ){
-                    productData.push({name: 'add-to-cart', value: productID});
-                }
-
-                // productData.push({name: 'action', value: 'xoo_wsc_add_to_cart'});
-
-                // Trigger event.
-                jQuery( document.body ).trigger( 'adding_to_cart', [ $button, productData ] );
-
-                // console.log('context');
-                // console.log(this);
-
-                console.log('product data');
-                console.log(productData);
-
-                productData = [
-                    {
-                        name: 'attribute_choose-quantity',
-                        value: '1-Pack',
-                    },
-                    {
-                        name: 'subscribe-to-action-input',
-                        value: 'no',
-                    },
-                    {
-                        name: 'convert_to_sub_dropdown1234',
-                        value: '2_month',
-                    },
-                    {
-                        name: 'convert_to_sub_1234',
-                        value: '1_month',
-                    },
-                    {
-                        name: 'quantity',
-                        value: '1',
-                    },
-                    {
-                        name: 'add-to-cart',
-                        value: '1234',
-                    },
-                    {
-                        name: 'action',
-                        value: 'wn_float_add_to_cart',
-                    },
-                    {
-                        name: 'product_id',
-                        value: '1234',
-                    },
-                    {
-                        name: 'variation_id',
-                        value: '1588',
-                    },
-                ];
-
-                console.log(productData);
-
-                jQuery.ajax({
-                    url: '/?wc-ajax=wn_float_add_to_cart',
-                    type: 'POST',
-                    context: this,
-                    data: jQuery.param(productData),
-                    success: function(response){
-
-                        console.log('success');
-                        console.log( response );
-                        if(response.fragments){
-                            // Trigger event so themes can refresh other areas.
-                            // jQuery( document.body ).trigger( 'added_to_cart', [ response.fragments, response.cart_hash, $button ] );
-                        }else{
-                            // window.location.reload();
-                        }
-
-                    },
-                    complete: function(response){
-                        console.log('complete');
-                        
-
-                        let res = response.responseText;
-                        console.log(res);
-                        // console.log(this);
-                        // this.unblock();
-                        $button
-                            // .removeClass('loading')
-                            .addClass('added');
-                    }
-                })
+                return;
 
             }, false);
 

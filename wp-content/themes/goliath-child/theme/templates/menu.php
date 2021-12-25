@@ -26,6 +26,49 @@
             position: relative;
         }
 
+        .wn_mwh_menu_add_to_cart {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            padding-right: 20px;
+        }
+
+        .wn_mwh_menu_add_to_cart_cart {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .wn_mwh_menu_add_to_cart_cart:hover .wn_mwh_menu_add_to_cart_icon{
+            transform: scale(1.08);
+            transition: 0.3s ease;
+        }
+
+        .wn_mwh_menu_add_to_cart_items_number {
+            position: absolute;
+            display: block;
+            top: -5px;
+            right: calc(100% - 5px);
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--wn_mwh_secondary_color);
+            background-color: #fff;
+            padding: 0px 5px;
+            border-radius: 50px;
+            font-size: 10px;
+            line-height: 1.4em;
+        }
+
+        .wn_mwh_menu_add_to_cart_icon {
+            display: block;
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="rgb(255, 255, 255)" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M24 3l-.743 2h-1.929l-3.474 12h-13.239l-4.615-11h16.812l-.564 2h-13.24l2.937 7h10.428l3.432-12h4.195zm-15.5 15c-.828 0-1.5.672-1.5 1.5 0 .829.672 1.5 1.5 1.5s1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5zm6.9-7-1.9 7c-.828 0-1.5.671-1.5 1.5s.672 1.5 1.5 1.5 1.5-.671 1.5-1.5c0-.828-.672-1.5-1.5-1.5z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            transition: 0.3s ease;
+        }
+
         .wn_mwh_nav_ul > li > a {
             
             font-family: Abel;
@@ -249,30 +292,40 @@
         <div class="wn_dropdown_wrapper">
             <ul class="wn_mwh_nav_ul_responsive">
                 <?php
-                    // echo '<pre>';
-                    // var_dump($menu_items);
-                    // echo '</pre>';
+
                     $new_ul = true;
-                    for($i = 0; $i < count($menu_items); $i++) {
-                        if($menu_items[$i]->menu_item_parent == '0') {
+
+                    for( $i = 0; $i < count($menu_items); $i++ ) {
+
+                        if( $menu_items[$i]->menu_item_parent == '0' ) {
+
                             $new_ul = true;
                             ?>
-                                <li class="<?php if($menu_items[$i]->url == $current_permalink) echo 'active'; ?>">
-                                    <a href="<?php echo $menu_items[$i]->url; ?>"><?php echo $menu_items[$i]->title?></a>
+                                <li class="<?php if( $menu_items[$i]->url == $current_permalink ) echo 'active'; ?>">
+                                    <a href="<?php echo $menu_items[$i]->url; ?>"><?php echo $menu_items[$i]->title; ?></a>
                             <?php
+
                         }
                         else {
+
                             if ($new_ul){
+
                                 echo '<ul class="wn_mwh_menu_level2_ul">';
+
                             }
+
                             $new_ul = false;
+
                             echo '<li><a href="' . $menu_items[$i]->url . '">' . $menu_items[$i]->title . '</a></li>';
+
                             if($menu_items[$i + 1]->menu_item_parent == '0') {
+
                                 echo '</ul>';
+
                             }
                         }
                     }?>
-                    </li>
+                </li>
             </ul>
         </div>
     </div>
@@ -291,6 +344,10 @@
                             }
                         }
                     ?>
+                    <li>
+                        <!--Cart section-->
+                        <?php require_once get_stylesheet_directory() . '/templates/woocommerce/cart_section.php'; ?>
+                    </li>
                 </ul>
             </div>
         </div>

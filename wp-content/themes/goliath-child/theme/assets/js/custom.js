@@ -331,9 +331,56 @@ class WnMwhFooter {
 
 }
 
+class WnFloatingCart {
 
+    static instance(){
+        if( !WnFloatingCart.instance_obj ){
+            WnFloatingCart.instance_obj = this;
+        }
 
-new WnMwhFooter();
+        return WnFloatingCart.instance_obj;
+    }
+
+    static init_on_document_load_event() {
+        document.addEventListener( "DOMContentLoaded", () => {
+            this.init();
+		} );
+    }
+
+    static init(){
+        this.cart_buttons    = document.querySelectorAll('.wn_mwh_cart_button'), 
+        this.floating_cart   = document.querySelector('.wn_mwh_floating_cart');
+
+        //If cart do not exist then return
+        if( !this.floating_cart ) {
+            return;
+        }
+
+        this.register_cart_button();
+    }
+
+    static register_cart_button() {
+        let self = this;
+
+        Array.prototype.forEach.call( this.cart_buttons, function( cart_button ){
+            cart_button.addEventListener( 'click', self.cart_button_click_handler );
+        });
+    }
+
+    static cart_button_click_handler(e) {
+        let self = WnFloatingCart;
+
+        //if click is insde the cart items do not close it
+        if( this.classList.contains( 'wn_mwh_floating_cart' ) && ( e.target != self.floating_cart ) ) {
+            return;                    
+        }
+
+        self.floating_cart.classList.toggle( 'wn_mwh_floating_cart__active' );
+    }
+}
+
+new WnFloatingCart();
+WnFloatingCart.instance().init_on_document_load_event();
 
 
 

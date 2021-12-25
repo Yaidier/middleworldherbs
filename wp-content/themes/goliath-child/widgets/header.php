@@ -913,7 +913,7 @@
     height: auto;
 }
 
-.wn_mwh_menu_wrapper {
+/* .wn_mwh_menu_wrapper {
     background-color: #232b19;
     margin-left: auto;
     margin-right: auto;
@@ -923,7 +923,7 @@
     color: white;
     z-index: 100;
     position: relative;
-}
+} */
 
 body::after {
     opacity: 0 !important;

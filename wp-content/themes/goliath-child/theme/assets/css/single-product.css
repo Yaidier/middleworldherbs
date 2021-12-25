@@ -448,7 +448,7 @@ input:focus-visible {
 }
 
 .variations_form {
-	display: none;
+	display: block;
 }
 
 .wn-every {

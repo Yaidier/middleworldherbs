@@ -62,6 +62,8 @@ jQuery(document).ready(function($){
                         jQuery('.wn_mwh_menu_wrapper').append(data);
                         wn_mwh_replace_active();
                         wn_mwh_custom_script(true);
+                        console.log('reloading the floating cart again');
+                        WnFloatingCart.instance().init();
                     } 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -69,7 +71,6 @@ jQuery(document).ready(function($){
                 }
         
             });
-            
         }
     }
 
