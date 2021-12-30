@@ -82,8 +82,8 @@ class WC {
 
                 if( !current_user_can('administrator') ) { 
                     
-                    add_filter( 'woocommerce_is_purchasable', '__return_false');
-                    echo '<input type="hidden" id="wn_product_not_purchasable">'; 
+                    // add_filter( 'woocommerce_is_purchasable', '__return_false');
+                    // echo '<input type="hidden" id="wn_product_not_purchasable">'; 
                     
                 }
             }
@@ -95,6 +95,11 @@ class WC {
             global $post;
 
             $amz_redirect_info = get_post_meta( $post->ID, 'amz_redirect_data' );
+
+            if ( ! isset( $amz_redirect_info[0] ) ) {
+                return $price;
+            }
+
             $amz_redirect_info = $amz_redirect_info[0];
 
             if ( isset( $amz_redirect_info ) && !empty( $amz_redirect_info ) && $amz_redirect_info['amz_redirect_is_active'] == '1' ) {

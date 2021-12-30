@@ -268,27 +268,19 @@ wn_mwh_custom_script(false);
 class WnMwhFooter {
 
 	constructor() {
-
 		document.addEventListener( "DOMContentLoaded", () => {
-    
             this.init();
-			
 		} );
-
 	}
 
     init(){
-
         this.open_close_tabs_on_mobile();
-
     }
 
 	open_close_tabs_on_mobile() {
-
         let elements = document.querySelectorAll('.wn_mwh_footer_menu h3');
 
-        elements.forEach(function( item ){
-
+        elements.forEach( function( item ){
             let footer_menu_element = item.closest('.wn_mwh_footer_menu');
             let ul_element          = footer_menu_element.querySelector('ul');
             let ul_height           = ul_element.offsetHeight;
@@ -347,23 +339,47 @@ class WnFloatingCart {
 		} );
     }
 
-    static init(){
-        this.cart_buttons    = document.querySelectorAll('.wn_mwh_cart_button'), 
-        this.floating_cart   = document.querySelector('.wn_mwh_floating_cart');
-
+    static check_floating_cart_element() {
         //If cart do not exist then return
         if( !this.floating_cart ) {
             return;
         }
+    }
 
+    static init(){
+        console.log( 'initiazing the floating cart...' );
+
+        this.floating_cart   = document.querySelector('.wn_mwh_floating_cart');
+        this.items_counter   = null;
+
+        this.check_floating_cart_element();
+        this.register_floating_cart_events();
         this.register_cart_button();
     }
 
-    static register_cart_button() {
-        let self = this;
+    static alert_notification( status, message ) {
+        let notification_banner = this.floating_cart.querySelector( '.wn_mwh_floating_cart_not' );
 
-        Array.prototype.forEach.call( this.cart_buttons, function( cart_button ){
-            cart_button.addEventListener( 'click', self.cart_button_click_handler );
+        if ( !notification_banner ) {
+            return;
+        }
+
+        notification_banner.querySelector( '.wn_mwh_floating_cart_not__message' ).innerHTML = message;
+        notification_banner.setAttribute( 'class', 'wn_mwh_floating_cart_not ' + 'wn_mwh_not__active_' + status ); 
+
+        setTimeout(() => {
+            notification_banner.classList.remove( 'wn_mwh_not__active_success' );
+            notification_banner.classList.remove( 'wn_mwh_not__active_failure' );
+        }, 2500);
+    }
+
+    static register_cart_button() {
+        let self            = this,
+            cart_buttons    = document.querySelectorAll('.wn_mwh_cart_button');
+
+        Array.prototype.forEach.call( cart_buttons, function( cart_button ){
+            cart_button.removeEventListener( 'click', self.cart_button_click_handler);
+            cart_button.addEventListener( 'click', self.cart_button_click_handler);
         });
     }
 
@@ -377,9 +393,172 @@ class WnFloatingCart {
 
         self.floating_cart.classList.toggle( 'wn_mwh_floating_cart__active' );
     }
+
+    static update_floating_cart( floating_cart_inner_content ) {
+        this.check_floating_cart_element();
+
+        if ( !floating_cart_inner_content ) {
+            console.log( 'WN Error => Inner content is missing' );
+            return;
+        }
+
+        let inner_cart          = this.floating_cart.querySelector( '.wn_mwh_floating_cart_inner' );
+        inner_cart.innerHTML    = floating_cart_inner_content;
+
+        this.register_floating_cart_events();
+    }
+
+    static update_nav_menu_cart_button() {
+        this.check_floating_cart_element();
+
+        let nav_menu_cart_items_number  = document.querySelector( '.wn_mwh_menu_add_to_cart_items_number' ),
+            cart_items_count            = ( this.items_counter == 0 ) ? '' : this.items_counter;
+            
+        nav_menu_cart_items_number.innerHTML  = cart_items_count;
+    }
+
+    static update_items_number() {
+        this.items_counter = document.querySelectorAll( '.wn_mwh_floating_cart .wn_mwh_floating_cart_inner__body_item' ).length;
+    }
+
+    static show_the_floating_cart( with_spninner ) {
+        this.check_floating_cart_element();
+        if( !this.floating_cart.classList.contains('wn_mwh_floating_cart__active') ) {
+
+            this.floating_cart.classList.add('wn_mwh_floating_cart__active');
+
+            if( with_spninner ) {
+                this.floating_cart.classList.add('wn_mwh_spinner__active');
+            }
+        }
+    }
+
+    static remove_spinner_from_floating_cart() {
+        this.check_floating_cart_element();
+
+        if( this.floating_cart.classList.contains('wn_mwh_spinner__active') ) {
+            this.floating_cart.classList.remove('wn_mwh_spinner__active');
+        }
+    }
+
+    static add_spinner_to_floating_cart() {
+        this.check_floating_cart_element();
+
+        if( !this.floating_cart.classList.contains('wn_mwh_spinner__active') ) {
+            this.floating_cart.classList.add('wn_mwh_spinner__active');
+        }
+    }
+
+    static register_floating_cart_events() {
+        this.register_remove_items_events();
+        this.register_uprade_to_subscription_event();
+        this.register_purchase_dropdown_options();
+        this.register_packs_dropdown_options();
+        this.register_cart_button();
+    }
+
+    static register_packs_dropdown_options(){
+        let packs_dropdown_select = this.floating_cart.querySelector( '.wn_mwh_floating_cart_inner__body_item_pack_options_select' );
+
+        if ( !packs_dropdown_select ) {
+            return;
+        }
+
+        packs_dropdown_select.addEventListener( 'change', function() {
+            let _data = {
+                    action:                 'wn_mwh_float_update_pack_option',
+                    cart_item_id:           this.closest( '.wn_mwh_floating_cart_inner__body_item' ).getAttribute( 'cart-item-id' ),
+                    option_variation_id:    this.value,
+                    respond_to:             'WnFloatingCart.server_response_receiver',
+                };
+    
+            WnAjaxHandler.call_ajax_call_v2( _data );
+            WnFloatingCart.add_spinner_to_floating_cart();
+        } );
+    }
+
+    static server_response_receiver( response ) {
+        console.log( response );
+        if ( response['content'] != null ) 
+            this.update_floating_cart( response['content'] );
+        this.remove_spinner_from_floating_cart();
+        this.alert_notification( response['status'], response['message'] );
+    }
+
+    static register_purchase_dropdown_options(){
+        let purchase_dropdown_select = this.floating_cart.querySelector( '.wn_mwh_floating_cart_inner__body_item_subscriptions_options_select' );
+
+        if ( !purchase_dropdown_select ) {
+            return;
+        }
+        
+        purchase_dropdown_select.addEventListener( 'change', function() {
+            let _data = {
+                    action:             'wn_mwh_float_update_purchase_option',
+                    cart_item_id:       this.closest( '.wn_mwh_floating_cart_inner__body_item' ).getAttribute( 'cart-item-id' ),
+                    purchase_option:    this.value,
+                    respond_to:         'WnFloatingCart.server_response_receiver',
+                };
+        
+            WnAjaxHandler.call_ajax_call_v2( _data );
+            WnFloatingCart.add_spinner_to_floating_cart();
+        } );
+    }
+
+    static register_uprade_to_subscription_event() {
+        let self                    = this,
+            upgrade_to_subs_btns    = this.floating_cart.querySelectorAll( '.wn_mwh_floating_cart_inner__body_item_content_btn_subscribe' );
+
+        Array.prototype.forEach.call( upgrade_to_subs_btns, function( upgrade_to_subs_btn ){
+            upgrade_to_subs_btn.addEventListener( 'click', self.upgrade_to_subs_handler );
+        });
+    }
+
+    static upgrade_to_subs_handler() {
+        let _data = {
+            action:             'wn_mwh_float_upgrade_to_subscription',
+            cart_item_id:       this.closest( '.wn_mwh_floating_cart_inner__body_item' ).getAttribute( 'cart-item-id' ),
+            respond_to:         'WnFloatingCart.server_response_receiver',
+        };
+
+        WnAjaxHandler.call_ajax_call_v2( _data );
+        WnFloatingCart.add_spinner_to_floating_cart();
+    }
+
+    static register_remove_items_events() {
+        let self = this;
+        let remove_items_buttons = this.floating_cart.querySelectorAll( '.wn_mwh_floating_cart_inner__remove_item' );
+
+        Array.prototype.forEach.call( remove_items_buttons, function( remove_item_btn ){
+            remove_item_btn.addEventListener( 'click', self.remove_item_btn_handler );
+        });
+    }
+
+    static remove_item_btn_handler() {
+        let _data = {
+                action:         'wn_mwh_float_remove_from_cart',
+                product_id:     this.closest( '.wn_mwh_floating_cart_inner__body_item' ).getAttribute( 'product-id' ),
+                cart_item_id:   this.closest( '.wn_mwh_floating_cart_inner__body_item' ).getAttribute( 'cart-item-id' ),
+                respond_to:     'WnFloatingCart.remove_item_from_cart_receiver',
+            };
+
+        WnAjaxHandler.call_ajax_call_v2( _data );
+        WnFloatingCart.add_spinner_to_floating_cart();
+    }
+
+    static remove_item_from_cart_receiver( response ) {
+        if ( response['content'] != null ) {
+            this.update_floating_cart( response['content'] );
+            this.update_items_number();
+            this.update_nav_menu_cart_button();
+        }
+
+        this.remove_spinner_from_floating_cart();
+        this.alert_notification( response['status'], response['message'] );
+    }
 }
 
-new WnFloatingCart();
+new WnMwhFooter();
 WnFloatingCart.instance().init_on_document_load_event();
 
 

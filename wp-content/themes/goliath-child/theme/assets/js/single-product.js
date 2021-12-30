@@ -486,9 +486,9 @@ class WnFloatAddToCart {
 		} );
 	}
 
-    init(){
+    init() {
 
-        let add_to_cart_buttons = document.querySelectorAll('.wn-addtocart_add_to_cart_button');
+        let add_to_cart_buttons = document.querySelectorAll( '.wn-addtocart_add_to_cart_button' );
 
         Array.prototype.forEach.call(add_to_cart_buttons, function(button, i){
 
@@ -497,62 +497,41 @@ class WnFloatAddToCart {
                 console.log( 'the ajax url' );
                 console.log( the_ajax_script.ajaxurl );
 
-                let request             = new XMLHttpRequest(),
-			        url                 = new URL( the_ajax_script.ajaxurl ),
-                    product_id          = document.querySelector( 'form.variations_form.cart input[name="product_id"]' ).getAttribute( 'value' ),
-                    variation_id        = document.querySelector( 'form.variations_form.cart input[name="variation_id"]' ).getAttribute( 'value' ),
-                    quantity            = document.querySelector( 'form.variations_form.cart input[name="quantity"]' ).getAttribute( 'value' ),
-                    active_li_element   = document.querySelector( 'div.wn_custom_form_wrapper .wn_purshase_type.wn_var_selector > li.wn_varselector__aactive' ),
-                    subscription        = active_li_element.classList.contains( 'subscription_purshase_option' ) ? document.querySelector( '.wn-every_select .wn-every_dropdown li.active' ).getAttribute( 'value' ) : false;
+                let active_li_element   = document.querySelector( 'div.wn_custom_form_wrapper .wn_purshase_type.wn_var_selector > li.wn_varselector__aactive' ),
+                    _data = {
+                        action:         'wn_mwh_float_add_to_cart',
+                        product_id:     document.querySelector( 'form.variations_form.cart input[name="product_id"]' ).getAttribute( 'value' ),
+                        variation_id:   document.querySelector( 'form.variations_form.cart input[name="variation_id"]' ).getAttribute( 'value' ),
+                        quantity:       document.querySelector( 'form.variations_form.cart input[name="quantity"]' ).getAttribute( 'value' ),
+                        subscription:   active_li_element.classList.contains( 'subscription_purshase_option' ) ? document.querySelector( '.wn-every_select .wn-every_dropdown li.active' ).getAttribute( 'value' ) : false,
+                        respond_to:     'WnFloatAddToCart.response_receiver',
+                    };
 
-                url.searchParams.append( 'action',          'wn_mwh_float_add_to_cart' );
-                url.searchParams.append( 'product_id',      product_id );
-                url.searchParams.append( 'quantity',        quantity );
-                url.searchParams.append( 'variation_id',    variation_id );
-                url.searchParams.append( 'subscription',    subscription );
+                WnAjaxHandler.call_ajax_call_v2( _data );
+                WnFloatingCart.show_the_floating_cart( true );
 
-                console.log( 'is subscription' );
-                console.log( subscription );
 
-                console.log( 'form' );
-                console.log( document.querySelector( 'form.variations_form.cart' ) );
-
-                console.log( 'product id' );
-                console.log( product_id );
-
-                console.log( 'variation id' );
-                console.log( variation_id );
-
-                console.log( 'the url' );
-                console.log( url );
-
-                request.open( 'GET', url.href, true );
-                request.onload = function() {
-
-                    if (this.status >= 200 && this.status < 400) {
-
-                      const resp = this.response;
-                      console.log( 'Success!' );
-                      console.log( resp );
-
-                      
-
-                    } else {
-                      console.log( 'We reached our target server, but it returned an error' );
-                    }
-                };
-                  
-                request.onerror = function() {
-                    console.log( 'There was a connection error of some sort' );
-                };
-
-                request.send();
-
-                return;
 
             }, false);
 
         });
+    }
+
+    static response_receiver( response ) {
+
+
+
+        console.log( 'WnFloatAddToCart.response_receiver' );
+        console.log( response );
+
+        if ( response['status'] == 'success' ) {
+            WnFloatingCart.update_floating_cart( response['content'] );
+            WnFloatingCart.update_items_number();
+            WnFloatingCart.update_nav_menu_cart_button();
+        }
+
+        WnFloatingCart.remove_spinner_from_floating_cart();
+        WnFloatingCart.alert_notification( response['status'], response['message'] );
 
     }
 }
