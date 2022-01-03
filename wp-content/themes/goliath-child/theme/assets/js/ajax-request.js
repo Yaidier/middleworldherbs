@@ -62,6 +62,8 @@ jQuery(document).ready(function($){
                         jQuery('.wn_mwh_menu_wrapper').append(data);
                         wn_mwh_replace_active();
                         wn_mwh_custom_script(true);
+                        console.log('reloading the floating cart again');
+                        WnFloatingCart.instance().register_cart_button();
                     } 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -69,7 +71,6 @@ jQuery(document).ready(function($){
                 }
         
             });
-            
         }
     }
 
@@ -204,6 +205,10 @@ class WnAjaxHandler {
 
     }
 
+    static check() {
+        console.log( 'hello from AJAX HANDLER' );
+    }
+
     static param(object) {
         
         var parameters = [];
@@ -243,6 +248,51 @@ class WnAjaxHandler {
         };
 
         request.send( this.param( object ) );
+    }
+
+    static call_ajax_call_v2( data, url = null ) {
+
+        let request     = new XMLHttpRequest(),
+            respond_to  = false;
+
+        url = ( url ) ? new URL( url ) : new URL( the_ajax_script.ajaxurl );
+
+        Object.entries(data).forEach(([key, value]) => {
+
+            if( key != 'respond_to' ){
+                url.searchParams.append( key, value );
+            }
+            else {
+                respond_to = value;
+            }
+
+        });
+
+        request.open( 'GET', url.href, true );
+        request.onload = function() {
+
+            if (this.status >= 200 && this.status < 400) {
+
+                let response = this.response;
+
+                if( respond_to ) {
+                    eval( respond_to + '(' + response + ')' );
+                }
+                else {
+                    console.log( response );
+                }
+
+            } else {
+                console.log( 'We reached our target server, but it returned an error' );
+            }
+        };
+            
+        request.onerror = function() {
+            console.log( 'There was a connection error of some sort' );
+        };
+
+        request.send();
+
     }
 
 }

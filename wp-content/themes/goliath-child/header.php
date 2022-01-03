@@ -64,14 +64,14 @@
 
 		<?php endif; ?>
 
-        
+        <?php $site_url = get_site_url(); ?>
 
         <style>
 
             @font-face {
                 font-family: 'Abel';
-                src: url('https://middleworldherbs.com/wp-content/themes/goliath-child/theme/assets/local-fonts/google-fonts/Abel/Abel-Regular.woff2') format('woff2'),
-                    url('https://middleworldherbs.com/wp-content/themes/goliath-child/theme/assets/local-fonts/google-fonts/Abel/Abel-Regular.woff') format('woff');
+                src: url('<?php echo $site_url; ?>/wp-content/themes/goliath-child/theme/assets/local-fonts/google-fonts/Abel/Abel-Regular.woff2') format('woff2'),
+                    url('<?php echo $site_url; ?>/wp-content/themes/goliath-child/theme/assets/local-fonts/google-fonts/Abel/Abel-Regular.woff') format('woff');
                 font-weight: normal;
                 font-style: normal;
                 font-display: swap;
@@ -79,12 +79,12 @@
 
             @font-face { 
                 font-family: "Quicksand"; 
-                src: url(https://middleworldherbs.com/wp-content/themes/goliath-child/theme/assets/local-fonts/google-fonts/Quicksand/Quicksand-VariableFont_wght.ttf); 
+                src: url(<?php echo $site_url; ?>/wp-content/themes/goliath-child/theme/assets/local-fonts/google-fonts/Quicksand/Quicksand-VariableFont_wght.ttf); 
             }
 
             @font-face { 
                 font-family: "Anton"; 
-                src: url(https://middleworldherbs.com/wp-content/themes/goliath-child/theme/assets/local-fonts/google-fonts/Anton/Anton-Regular.ttf); 
+                src: url(<?php echo $site_url; ?>/wp-content/themes/goliath-child/theme/assets/local-fonts/google-fonts/Anton/Anton-Regular.ttf); 
                 font-weight: 400; 
             }
 
@@ -716,12 +716,12 @@
             }
 
             .wn_mwh_hero_link_1::before {
-                background-image: url('https://middleworldherbs.com/wp-content/uploads/2021/02/Artboard-61-1.png');
+                background-image: url('<?php echo $site_url; ?>/wp-content/uploads/2021/02/Artboard-61-1.png');
                 padding-top: 12.17%;
             }
 
             .wn_mwh_hero_link_2::before {
-                background-image: url('https://middleworldherbs.com/wp-content/uploads/2021/02/Artboard-61.png');
+                background-image: url('<?php echo $site_url; ?>/wp-content/uploads/2021/02/Artboard-61.png');
                 padding-top: 20.06%;
             }
 

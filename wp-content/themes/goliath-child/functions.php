@@ -1254,6 +1254,7 @@ function shapeSpace_script_loader_tag($tag, $handle, $src) {
 add_filter('script_loader_tag', 'shapeSpace_script_loader_tag', 10, 3);
 
 function wn_replace_current_nav_menu() {
+    
     wp_nav_menu( array(
         'menu_id'           => 'menu-primary',
         'menu'              => 'primary-menu',
