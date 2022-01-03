@@ -35,13 +35,14 @@ $cart_total = WC()->cart->get_cart_total();
         $total_checkout_price   = get_woocommerce_currency_symbol() . $item['line_total'];
         $quantity               = $item["quantity"];
         $is_subscription        = false;
+        $subscriptions_schemes  = array_values( \WCS_ATT_Product_Schemes::get_subscription_schemes( $item[ 'data' ] ) );
 
         if( $item["wcsatt_data"]["active_subscription_scheme"] ) {
             $is_subscription        = true;
             $scheme_key             = $item["wcsatt_data"]["active_subscription_scheme"];
             $selected_option        = 'Deliver every ' . str_replace( '_', ' ', $scheme_key );
             $price                  = $price . '<span class="wn_mwh_floating_cart_inner__body_item_content_price_suffix"> / ' . str_replace( '_', ' ', $item["wcsatt_data"]["active_subscription_scheme"] . '</span>' );
-            $subscriptions_schemes  = array_values( \WCS_ATT_Product_Schemes::get_subscription_schemes( $cart_items[ $cart_item_id ][ 'data' ] ) );
+            
         }
         else {
             $current_variation_id   = $item['variation_id'];
@@ -86,7 +87,9 @@ $cart_total = WC()->cart->get_cart_total();
                 </div>
             </div>
             <?php if( !$is_subscription ) : ?>
-                <button class="wn_mwh_floating_cart_inner__body_item_content_btn_subscribe">Upgrade to subscription & save 10%</button>
+                <?php if( !empty( $subscriptions_schemes ) ) : ?>
+                    <button class="wn_mwh_floating_cart_inner__body_item_content_btn_subscribe">Upgrade to subscription & save 10%</button>
+                <?php endif; ?>
             <?php else : ?>
                 <div class="wn_mwh_floating_cart_inner__body_item_subscriptions_options">
                     <select class="wn_mwh_floating_cart_inner__body_item_subscriptions_options_select">

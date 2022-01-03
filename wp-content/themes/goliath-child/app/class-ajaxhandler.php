@@ -160,10 +160,25 @@ class AjaxHandler {
             self::send_json_response( 'upgrade_to_subscription', 'admin_error', 'cart item id is missing' );
         }
 
-        $cart_item_id = $_GET['cart_item_id'];
+        $cart_item_id               = $_GET['cart_item_id'];
+        $cart_contents              = WC()->cart->get_cart();
+        $cart_item_prodcut_id       = $cart_contents[$cart_item_id]['product_id'];
+        $cart_item_variation_id     = $cart_contents[$cart_item_id]['variation_id'];
+        $product                    = wc_get_product( $cart_item_prodcut_id );
+        $variations                 = $product->get_available_variations();
+        $one_pack_var_id            = $variations[0]['variation_id']; 
 
-        if ( self::wn_mwh_float_update_subscription( $cart_item_id ) ) {
-            self::send_json_response( 'upgrade_to_subscription', 'success', 'Product updated to subscription', self::render_floating_cart_inner_content() );
+        if ( $one_pack_var_id == $cart_item_variation_id ) {
+            if ( self::wn_mwh_float_update_subscription( $cart_item_id ) ) {
+                self::send_json_response( 'upgrade_to_subscription', 'success', 'Product updated to subscription', self::render_floating_cart_inner_content() );
+            }
+        }
+        else {
+            $cart_item_id = self::wn_mwh_float_update_pack_option_action( $cart_item_id, $one_pack_var_id );
+
+            if ( self::wn_mwh_float_update_subscription( $cart_item_id ) ) {
+                self::send_json_response( 'upgrade_to_subscription', 'success', 'Product updated to subscription', self::render_floating_cart_inner_content() );
+            }
         }
     }
 
@@ -193,24 +208,35 @@ class AjaxHandler {
         if( !isset( $_GET['option_variation_id'] ) ){
             self::send_json_response( 'update_pack_option', 'admin_error', 'option variation id value not sent from js' );
         }
+
+        $cart_item_id = $_GET['cart_item_id'];
+        $variation_id = $_GET['option_variation_id'];
         
-        $cart_item_id   = $_GET['cart_item_id'];
-        $variation_id   = $_GET['option_variation_id'];
+        if( self::wn_mwh_float_update_pack_option_action( $cart_item_id, $variation_id ) ) {
+            self::send_json_response( 'update_pack_option', 'success', 'Product pack updated', self::render_floating_cart_inner_content() );
+        }
+        else {
+            self::send_json_response( 'update_pack_option', 'failure', 'It wasn\' possible to update the product', self::render_floating_cart_inner_content() );
+        }
+        
+    }
+
+    static function wn_mwh_float_update_pack_option_action( $cart_item_id, $variation_id ) {
         $variation      = wc_get_product( $variation_id );
         $product        = wc_get_product( $variation->get_parent_id() );
         $product_id     = $product->get_id();
         $susbcription   = WC()->cart->cart_contents[ $cart_item_id ][ 'wcsatt_data' ][ 'active_subscription_scheme' ];
 
         self::check_cart( $cart_item_id, $product_id, $variation_id, $susbcription, 'update_pack_option' );
-
+        
         WC()->cart->remove_cart_item( $cart_item_id );
 
         self::add_to_cart_validation( $product_id, 1, 'add_to_cart' );
         self::check_quantity( $product, 1, 'add_to_cart' );
 
-        WC()->cart->add_to_cart( $product_id, 1, $variation_id );
+        $cart_item_id = WC()->cart->add_to_cart( $product_id, 1, $variation_id );
         do_action('woocommerce_ajax_added_to_cart', $product_id);
 
-        self::send_json_response( 'update_pack_option', 'success', 'Product pack updated', self::render_floating_cart_inner_content() );
+        return $cart_item_id;
     }
 }

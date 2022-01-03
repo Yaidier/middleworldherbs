@@ -361,7 +361,7 @@ input:focus-visible {
 
 
 .wn_custom_form_wrapper {
-	display: none;
+	display: block;
 	margin-top: 30px;
 }
 
@@ -451,11 +451,6 @@ input:focus-visible {
 	display: block;
 }
 
-.wn-every {
-	margin-top: 10px;
-	display: none;
-}
-
 .wn-quatity > label,
 .wn-every > label {
   font-size: 12px;
@@ -464,116 +459,41 @@ input:focus-visible {
   opacity: 0.6;
 }
 
-.wn-every_select {
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  max-width: 242px;
-  height: 50px;
-  cursor: pointer;
-  background-color: #fff;
-  border-radius: 4px;;
+.wn-every {
+	margin-top: 10px;
+	display: none;
+	position: relative;
+	width: fit-content;
 }
 
-.wn-every_select * {
+.wn-every::after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translateY( calc( -50% + 11px ));
+	border: 5px solid transparent;
+	border-top-color: #443d1d;
+	width: 0;
+	height: 0;
+	pointer-events: none;
+	touch-action: none;
+}
+
+select.wn-every_select {
+	display: block;
+	height: 55px;
+	padding: 0px 30px 0px 20px;
+	font-weight: 600;
 	font-size: 14px;
-}
-
-.wn-every_select > span {
-  color: #fff;
-  font-weight: 600;
-  margin-top: 2px;
-  color: #443d1c;
-}
-
-
-.wn-every_select::after {
-  content: "";
-  position: absolute;
-  background-image: url('https://middleworldherbs.com/wp-content/themes/goliath-child/theme/assets/images/woocommerce/custom-add-to-cart-form/triange.svg');
-  width: 8px;
-  height: 8px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  right: 12px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-
-.wn-every_select--open > .wn-every_dropdown {
-  -webkit-transform: translateY(0px);
-          transform: translateY(0px);
-  z-index: 2;
-  opacity: 1;
-  -webkit-transition: .5s ease, opacity 1s ease;
-  transition: .5s ease, opacity 1s ease;
-}
-
-
-.wn-every_select--open::after {
-  -webkit-transform: translateY(-50%) rotate(180deg);
-          transform: translateY(-50%) rotate(180deg);
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-
-.wn-every_select {
-	width: 270px;
-	max-width: unset;
-}
-
- 
-.wn-every_dropdown {
-  position: absolute;
-  display: block;
-  left: 2px;
-  top: calc( 100% + 2px);
-  width: calc( 100% - 4px);
-  border-radius: 5px 5px 5px 5px;
-  background-color: #fff;
-  box-shadow: 5px 5px 20px #18150a;
-  border: 1px solid var(--wn-mwh_color_primary);
-  -webkit-transform: translateY(-70%);
-          transform: translateY(-70%);
-  z-index: -2;
-  opacity: 0;
-  -webkit-transition: 1.5s ease, opacity 0.2s ease;
-  transition: 1.5s ease, opacity 0.2s ease;
-}
-
-
-.wn-every_dropdown > ul {
-  list-style-type: none;
-  padding: 0px;
-}
-
- 
-.wn-every_dropdown > ul > li {
-  
-  font-weight: 600;
-  text-align: center;
-  padding: 5px 0px;
-  margin: 5px 3px;
-  border-radius: 3px;
-  color: var(--wn-mwh_color_primary);
-}
-
-
-.wn-every_dropdown > ul > li:hover {
-  color: #fff;
-  background-color: var(--wn-mwh_color_primary);
+	color: #443d1d;
+	background-color: #fff;
+	border-radius: 5px;
+	border: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	text-align: center;
 }
 
 .wn-addtocart {
@@ -624,11 +544,30 @@ input:focus-visible {
 	
 }
 
-.wn-addtocart_total > span {
+.wn_mwh_price_wrapper {
   margin-top: 2px;
-  font-size: 23px;
+  font-size: 19px;
   font-weight: 600;
   color: #f3e4c7;
+}
+
+.wn_mwh_price_wrapper__old .wn_mwh_price_value__old {
+	position: relative;
+	font-size: 15px;
+	font-weight: 600;
+	color: #f3e4c740;
+	margin-right: 7px;
+}
+
+.wn_mwh_price_wrapper__old .wn_mwh_price_value__old::before {
+	content: "";
+	position: absolute;
+	width: 100%;
+	border-bottom: 2px solid var(--wn_mwh_important_color);
+	left: 0px;
+	bottom: 10px;
+	transform: rotate(-15deg);
+	opacity: 0.9;
 }
 
 .wn-addtocart_add_to_cart_button {
@@ -643,6 +582,15 @@ input:focus-visible {
 .wn-addtocart_add_to_cart_button--disabled {
 	pointer-events: none;
 	opacity: 0.5;
+}
+
+.wn_mwh_sold_out {
+	display: block;
+    font-family: 'Abel';
+	font-size: 21px;
+    font-weight: 600;
+	color: var( --wn_mwh_important_color );
+	margin-top: 20px;
 }
 
 .wn-addtocart_amount {
@@ -736,11 +684,12 @@ input:focus-visible {
 	border-radius: 4px;
 	width: calc(100% - 10px);
 	min-width: 320px;
-	max-width: 400px;
+	/* max-width: 400px; */
 	margin: 0px;
 }
 
-.wn_var_selector > li {
+.wn_var_selector > li,
+.wn_var_selector > li > span {
 	font-weight: 600;
 	font-size: 14px;
     margin: 16px 5px;
@@ -749,7 +698,6 @@ input:focus-visible {
     cursor: pointer;
 	color: #443d1d;
 	text-align: center;
-	
 }
 
 .wn_var_selector_float_back {
