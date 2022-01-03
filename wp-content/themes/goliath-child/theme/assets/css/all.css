@@ -963,9 +963,6 @@ footer.footer {
         -ms-flex-pack: center;
             justify-content: center;
   }
-  .wn_mwh_footer .wn_mwh_footer_menu {
-    /* margin: 15px; */
-  }
 }
 
 @media only screen and (max-width: 500px) {
