@@ -70,8 +70,7 @@ class WC {
          * Add the redirect to thumbnail
          */  
         add_filter( 'woocommerce_get_price_html', function( $price, $product ){
-            global $post;
-            $amz_redirect_info = get_post_meta( $post->ID, 'amz_redirect_data' );
+            $amz_redirect_info = get_post_meta( $product->get_id(), 'amz_redirect_data' );
 
             if ( ! isset( $amz_redirect_info[0] ) ) {
                 return $price;

@@ -1812,8 +1812,3 @@ function wn_dequeue_scripts_single_product() {
 
 add_action( 'wp_print_scripts', 'wn_dequeue_scripts_single_product', 100 );
 
-    // global $product;
-    // echo '<pre>';
-    // var_dump( $product );
-    // echo '</pre>';
-    // die();

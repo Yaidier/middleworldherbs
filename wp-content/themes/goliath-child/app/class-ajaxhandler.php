@@ -16,8 +16,8 @@ class AjaxHandler {
         ];
 
         foreach( $ajax_hanlders as $ajax_hanlder ) {
-            add_action( 'wp_ajax_nopriv_' . $ajax_hanlder , [ self::class, $ajax_hanlder ]);
-            add_action( 'wp_ajax_' . $ajax_hanlder, [ self::class, $ajax_hanlder ]);
+            add_action( 'wp_ajax_nopriv_' . $ajax_hanlder , [ self::class, $ajax_hanlder ] );
+            add_action( 'wp_ajax_' . $ajax_hanlder, [ self::class, $ajax_hanlder ] );
         }
     }  
 
