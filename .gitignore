@@ -3,13 +3,11 @@
 # But descend into directories
 !*/
 
-# # Recursively allow files under:
-# "mu-plugins", "plugins", "themes" directory
-# !/wp-content/mu-plugins/**
-# !/wp-content/plugins/**
+# Recursively allow plugis under:
+!wp-content/plugins/wn-amz-sync/**
+
+# Recursively allow themes under:
 !/wp-content/themes/goliath-child/**
-
-
 
 # ignore this file
 wp-content/themes/index.php
@@ -22,9 +20,6 @@ wp-content/themes/twenty*/
 # ignore node dependency directories
 node_modules/
 
-# ignore specific directories
-email-automation-for-failed-payments/
-
 # ignore log files and databases
 *.log
 *.sql
@@ -32,4 +27,4 @@ email-automation-for-failed-payments/
 *.DS_Store
 
 # don't ignore this file
-!.gitignore/
+!.gitignore
