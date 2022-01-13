@@ -127,7 +127,8 @@ class WN_Amzs_Admin {
     }
 
     public static function render_sync_prices_options() { 
-        $asins_and_products = ( WN_Products_Sync::get_products_with_assin_number() )['asins_and_products'];
+        $response           = WN_Products_Sync::get_products_with_assin_number();
+        $asins_and_products = ( isset( $response['asins_and_products'] ) ) ? $response['asins_and_products'] : array();
 
         ?>
         <h2>Sync Prices</h2>
@@ -166,21 +167,26 @@ class WN_Amzs_Admin {
                 endforeach; ?>
             </ul>
             <?php
+            if( count( $asins_and_products ) === 0 ) { 
+                $extra_class = 'disabled';
+            } 
+            else { 
+                $extra_class = ''; 
+            }
+
             echo '<input type="hidden" name="products-count"  value="' . count( $asins_and_products ) . '">';
-            submit_button( 'Sync Prices', 'primary', 'wn_amzs_btn_sync_prices' ); ?>
+            submit_button( 'Sync Prices', 'primary ' . $extra_class, 'wn_amzs_btn_sync_prices' ); ?>
         </form>
         <?php 
     }
 
     public static function render_sync_images_options() {
-        $asins_and_products = ( WN_Products_Sync::get_products_with_assin_number() )['asins_and_products'];
+        $response           = WN_Products_Sync::get_products_with_assin_number();
+        $asins_and_products = ( isset( $response['asins_and_products'] ) ) ? $response['asins_and_products'] : array();
         ?>
-        <div class="wn_amzs_sync_header">
             <h2>Sync Images</h2>
             <i class="wn_amzs_sync_spinner <?php echo ( !self::$syncronizing_images ) ? ' disabled' : '' ?>" style="background-image: url(<?php echo WN_AMZ_SYNC_URL . '/assets/svg/spinner.svg' ?>)"></i>
-        </div>
-        
-        <div class="wn_amzs_sync_images_admin">
+
             <form method="post" action="">
                 <ul class="wn_amzs_sync_images_admin_logs_ul">
                     <?php foreach( $asins_and_products as $variant_product ) :
@@ -194,13 +200,16 @@ class WN_Amzs_Admin {
                     endforeach; ?>
                 </ul>
                 <?php 
-                
-                if( self::$syncronizing_images ) { $extra_class = 'disabled'; } else { $extra_class = ''; }
+                if( self::$syncronizing_images || ( count( $asins_and_products ) === 0 ) ) { 
+                    $extra_class = 'disabled';
+                } 
+                else { 
+                    $extra_class = ''; 
+                }
 
                 echo '<input type="hidden" name="products-count"  value="' . count( $asins_and_products ) . '">';
                 submit_button( 'Sync Images', 'primary ' . $extra_class , 'wn_amzs_btn_sync_images' ); ?>
             </form>
-        </div>
         <?php
     }
 
