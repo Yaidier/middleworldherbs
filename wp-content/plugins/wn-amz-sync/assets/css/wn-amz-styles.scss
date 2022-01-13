@@ -57,7 +57,8 @@
     background-size: contain;
 }
 
-#wn_amzs_btn_sync_images.disabled {
+#wn_amzs_btn_sync_images.disabled,
+#wn_amzs_btn_sync_prices.disabled {
     pointer-events: none;
 }
 

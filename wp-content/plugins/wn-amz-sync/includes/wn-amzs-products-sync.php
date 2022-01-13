@@ -252,7 +252,7 @@ class WN_Products_Sync {
         }
 
         if( empty( $asins_and_products ) ) {
-            throw new Exception ( 'No Asins Numbers found on the products' );
+            return [ 'status' => 'error', 'message' => 'No Asins Numbers found on the products' ];
         }
 
         $asins = array_keys( $asins_and_products );
