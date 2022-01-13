@@ -1,0 +1,63 @@
+.wn_amzs_sync_images_admin_logs_ul {
+    list-style-type: none;
+    padding-left: 16px;
+}
+
+.wn_amzs_sub_list {
+    margin-top: 10px;
+    padding-left: 25px;
+}
+
+.wn_amzs_sync_images_admin_logs_ul > li {
+    position: relative;
+}
+
+.wn_amzs_sync_images_admin_logs_ul > li.success::before {
+    content: "\f147";
+    position: absolute;
+    font-family: dashicons;
+    font-size: 16px;
+    left: -20px;
+    top: 0px;
+    color: #568e2f;
+}
+
+.wn_amzs_sync_images_admin_logs_ul > li.error::before {
+    content: "\f534";
+    position: absolute;
+    font-family: dashicons;
+    font-size: 16px;
+    left: -20px;
+    top: 0px;
+    color: #8e2f2f;
+}
+
+.wn_amzs_sync_images_admin_logs_ul.disabled {
+    display: none;
+}
+
+.wn_amzs_sync_header {
+    display: flex;
+    align-items: center;
+}
+
+.wn_amzs_sync_spinner {
+    margin-left: 10px;
+}
+
+.wn_amzs_sync_spinner.disabled {
+    display: none;
+}
+
+.wn_amzs_sync_spinner {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+#wn_amzs_btn_sync_images.disabled {
+    pointer-events: none;
+}
+
