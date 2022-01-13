@@ -31,8 +31,6 @@ if(function_exists('putRevSlider'))
         <div class="wn_mwh_rev_slider_wrapper">
             <?php echo do_shortcode('[rev_slider alias="slider-1"][/rev_slider]'); ?>
         </div>
-
-        
         <div class="wn_mwh_wc_products_carousel_wrapper">
             <div class="wn_mwh_header_wrapper">
                 <span>FEATURED PRODUCTS</span>
@@ -46,7 +44,6 @@ if(function_exists('putRevSlider'))
                 <?php wn_products_carousel([], 11); ?>
             </div>
         </div>
-
         <div class="wn_mwh_latest_articles_wrapper">
             <?php
                 wn_mwh_latest_posts();
